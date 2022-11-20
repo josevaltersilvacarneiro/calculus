@@ -2,11 +2,45 @@
 
 require 'cmath'
 
+#
+
+def equat_quadratic(a, b = 0, c = 0)
+
+  delta = b ** 2 - 4 * a * c
+
+  x1 = (-b + CMath.sqrt(delta) ** 0.5) / (2 * a)
+  x2 = (-b - CMath.sqrt(delta) ** 0.5) / (2 * a)
+
+  vert_m_x = -b / (2 * a)
+  vert_m_y = -delta / (4 * a)
+
+  return x1, x2, vert_m_x, vert_m_y
+
+end
+
 def print_header
   
   puts "*************************************************************" 
   puts "* Welcome to the calculus program. Let's learn mathematics! *"
   puts "*************************************************************" 
+
+end
+
+def get_elements(quantity_of_items)
+
+  items = Array.new
+
+  until quantity_of_items == 0 do
+
+    print "Level #{quantity_of_items} coefficient: "
+    number = gets.chomp.to_f
+    items.push(number)
+
+    quantity_of_items -= 1
+
+  end
+
+  return items
 
 end
 
@@ -19,11 +53,7 @@ def calc_equat_linear
 
   puts 'We will calculate the root of the linear function!'
 
-  print 'Angle coefficient: '
-  coeffic_a = gets.chomp.to_f
-  print 'Linear coefficient: '
-  coeffic_b = gets.chomp.to_f
-
+  coeffic_a, coeffic_b = get_elements(2)
   root = -coeffic_b / coeffic_a
   
   puts "The root of the equation f(x) = #{coeffic_a}x + #{coeffic_b} is #{root}"
@@ -40,22 +70,10 @@ def calc_equat_quadratic
 
   puts 'We will calculate the roots of the quadratic function!'
 
-  print 'Type a: '
-  coeffic_a = gets.chomp.to_f
-  print 'Type b: '
-  coeffic_b = gets.chomp.to_f
-  print 'Type c: '
-  coeffic_c = gets.chomp.to_f
+  coeffic_a, coeffic_b, coeffic_c = get_elements(3)
+  x1, x2, vert_m_x, vert_m_y = equat_quadratic(coeffic_a, coeffic_b, coeffic_c)
 
-  delta = coeffic_b ** 2 - 4 * coeffic_a * coeffic_c
-
-  x1 = (-coeffic_b + CMath.sqrt(delta) ** 0.5) / (2 * coeffic_a)
-  x2 = (-coeffic_b - CMath.sqrt(delta) ** 0.5) / (2 * coeffic_a)
-
-  vert_m_x = -coeffic_b / (2 * coeffic_a)
-  vert_m_y = -delta / (4 * coeffic_a)
-
-  puts "Tha roots are: #{x1} and #{x2}"
+  puts "The roots of the equation f(x) = #{coeffic_a}x² + #{coeffic_b}x + #{coeffic_c} are #{x1} and #{x2}"
 
   if coeffic_a > 0 # min
 
